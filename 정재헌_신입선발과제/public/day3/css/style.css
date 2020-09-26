@@ -1,0 +1,16 @@
+#container {
+    text-align:center;
+    display: block;
+    font-family:견명조;
+}
+
+    .my_box {
+          padding: 2px 2px 2px 2px;
+          text-align: center;
+          border: #888888 1.5px solid;
+          background-color: #FFFFFF;
+          color: black;
+          font-size: 17pt; 
+          font-weight: normal;
+          font-style: normal; 
+    }
