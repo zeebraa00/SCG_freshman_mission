@@ -2,30 +2,45 @@
   <head>
       <style>
         html {background: url(/day4/img/bg.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
-        img {display: block; margin: 0px auto; }
+        img {display: block; margin: 0px auto;}
         .flex-container {
         display: flex;
         justify-content: center;
         }
+        .title {
+        font-family: 'Wolyeonggyo';
+        font-size: 80px;
+        color: #212529;
+        }
         .body {
         font-size: 20px;
         color: #212529;
-        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: 'NEXON Lv1 Gothic OTF'
         }
         .body_link {
         font-size: 17px;
         color: #212529;
-        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: 'NEXON Lv1 Gothic OTF'
+        }
+        @font-face { font-family: 'Wolyeonggyo';
+                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Wolyeonggyo.woff') format('woff'); 
+                     font-weight: normal;
+                     font-style: normal; 
+        }
+        @font-face { font-family: 'NEXON Lv1 Gothic OTF';
+                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+                     font-weight: normal;
+                     font-style: normal;
         }
       </style>
       <link href="/day4/css/style.css" rel="stylesheet">
   </head>
   <body>
-      <p>
-            <img src='/day4/img/title.jpg' width='600px'>
-      </p>
-      <p>
-            <p class="body" style="text-align:center;margin-top:40px">성균관대학교 시스템컨설턴트그룹 23기 신입선발과제</p>
+      <div>
+            <p class="title" style="text-align:center;margin-top:50px">웹프로그래밍 입문</p>
+      </div>
+      <div>
+            <p class="body" style="text-align:center;margin-top:-20px;margin-bottom:40px">성균관대학교 시스템컨설턴트그룹 23기 신입선발과제</p>
             <div class="flex-container">
                 <input type="button" class="button" value="1일차 과제1" style="text-align:center;" onclick="window.location.href='/day1_1'"/>
                 <input type="button" class="button" value="1일차 과제2" style="text-align:center;" onclick="window.location.href='/day1_2'"/>
@@ -46,10 +61,6 @@
             <form action="/logout" method="post" style="text-align:center;align-items:center;" class="flex-container">
                 <button class="login_button" type="submit">로그아웃</button>
             </form>
-      </p>
+      </div>
   </body>
 </html>
-
-<script>
-    console.log(session)
-</script>
