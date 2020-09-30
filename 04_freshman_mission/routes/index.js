@@ -66,13 +66,23 @@ router.get('/day3', (req, res)=> {
 router.post('/login', async (req, res)=> {
   try {
     let user_check = 0; 
-    const file = fs.readFileSync(path.resolve(__dirname, "../public/day4/json/database.json")).toString();
-    const login = await JSON.parse(file).forEach(item => {
+    const file = fs.readFileSync(path.resolve(__dirname, "../utils/database.json")).toString();
+    const login = await Promise.all(JSON.parse(file).map(async (item) => {
       const is_user = (item.userid == req.body.id) && (item.password == req.body.pw)
       if (is_user) {
         user_check = 1;
+        return;
       }
-    });
+    }));
+    
+    // forEach 는 promise를 반환하지 않으므로, 위의 코드로 수정함.
+    // const login = await JSON.parse(file).forEach(item => {
+    //   const is_user = (item.userid == req.body.id) && (item.password == req.body.pw)
+    //   if (is_user) {
+    //     user_check = 1;
+    //   }
+    // });
+
     if (user_check) {
       req.session.regenerate( () => {
         req.session.logined = true;
