@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require("path");
 
 router.get('/', (req, res)=> {
-  console.log(req.session.logined);
   if (req.session.logined == true) {
     res.render("day4/logined");
   } else {
