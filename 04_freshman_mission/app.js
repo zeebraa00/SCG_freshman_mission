@@ -1,13 +1,22 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
 const indexRouter = require('./routes/index');
-const session = require('express-session');
 
 const app = express();
+
+app.use(session({
+  secret: "zebra",
+  resave: true,
+  saveUninitialized: true,
+  proxy: true,
+  cookie: {
+    maxAge: 3 * 60 * 60 * 1000
+  }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,11 +46,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.use(session({
-  secret: "zebra",
-  resave: false,
-  saveUninitialized: true
-}));
 
 module.exports = app;

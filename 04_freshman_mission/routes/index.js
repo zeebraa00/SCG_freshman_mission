@@ -4,7 +4,12 @@ const fs = require('fs');
 const path = require("path");
 
 router.get('/', (req, res)=> {
-  res.render("index");
+  console.log(req.session.logined);
+  if (req.session.logined == true) {
+    res.render("day4/logined");
+  } else {
+    res.render("index");
+  }
 })
 
 router.get('/day1_1', (req, res)=> {
@@ -59,34 +64,46 @@ router.get('/day3', (req, res)=> {
   res.render("day3/index");
 })
 
-router.get('/login', (req, res) => {
-  if (res.session.logined) {
-    console.log("you are logined");
-  } else {
-    console.log("you are not logined");
-  }
-})
-
-router.post('/login', (req, res)=> {
-  console.log("login gogo");
+router.post('/login', async (req, res)=> {
   try {
-    let user_check = 0;    
+    let user_check = 0; 
     const file = fs.readFileSync(path.resolve(__dirname, "../public/day4/json/database.json")).toString();
-    const login = JSON.parse(file).forEach(item => {
+    const login = await JSON.parse(file).forEach(item => {
       const is_user = (item.userid == req.body.id) && (item.password == req.body.pw)
       if (is_user) {
         user_check = 1;
       }
     });
-    if (user_check == 1) {
-      res.redirect("/");
+    if (user_check) {
+      req.session.regenerate( () => {
+        req.session.logined = true;
+        req.session.user_id = req.body.id;
+        // console.log(req.session)
+      })
+      req.session.save(() => {
+        res.redirect("/");
+      })
     } else {
       res.redirect("/");
     }
   } catch(e) {
     console.log(e);
   }
-  console.log("login gogogogo");
+})
+
+router.post('/logout', (req,res) => {
+  try {
+    req.session.destroy((e) => {
+          if (e) {
+            console.log(e);
+          } else {
+            res.redirect("/");
+          }
+      }
+  );  
+  } catch (e) {
+    console.log(e);
+  }
 })
 
 module.exports = router;
