@@ -1,32 +1,49 @@
 <html>
   <head>
       <style>
-          html {background: url(/day4/img/bg.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
-          img {display: block; margin: 0px auto; }
+        html {background: url(/day4/img/bg.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
+        img {display: block; margin: 0px auto; }
+        .flex-container {
+        display: flex;
+        justify-content: center;
+        }
+        .body {
+        font-size: 20px;
+        color: #212529;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
       </style>
       <link href="/day4/css/style.css" rel="stylesheet">
   </head>
   <body>
       <p>
-          <img src='/day4/img/title.jpg' width='600px'>
+            <img src='/day4/img/title.jpg' width='600px'>
       </p>
-      <br>
       <p>
-          <br><br>
-          &#160;&#160;&#160;&#160;&#160;
-          <input type="button" class="button" value="1일차 과제1" style=" margin: auto; text-align:center;" onclick="window.location.href='/day1_1'"/>
-          &#160;&#160;&#160;&#160;&#160;
-          <input type="button" class="button" value="1일차 과제2" style=" margin: auto; text-align:center;" onclick="window.location.href='/day1_2'"/>
-          &#160;&#160;&#160;&#160;&#160;
-          <input type="button" class="button" value="1일차 과제3" style=" margin: auto; text-align:center;" onclick="window.location.href='/day1_3'"/>
-      </p>
-      <br><br><br>
-      <p>
-          <input type="button" class="button" value="2일차 과제1" style="margin: auto; text-align:center;" onclick="window.location.href='/day2_1'"/>
-          &#160;&#160;&#160;&#160;&#160;
-          <input type="button" class="button" value="2일차 과제2" style="margin: auto; text-align:center;" onclick="window.location.href='/day2_2'"/>
-          &#160;&#160;&#160;&#160;&#160;
-          <input type="button" class="button" value="3일차 과제1" style="margin: auto; text-align:center;" onclick="window.location.href='/day3'"/>
+            <p class="body" style="text-align:center;margin-top:40px">성균관대학교 시스템컨설턴트그룹 23기 신입선발과제</p>
+            <div class="flex-container">
+                <input type="button" class="button" value="1일차 과제1" style="text-align:center;" onclick="window.location.href='/day1_1'"/>
+                <input type="button" class="button" value="1일차 과제2" style="text-align:center;" onclick="window.location.href='/day1_2'"/>
+            </div>
+            <div class="flex-container">
+                <input type="button" class="button" value="1일차 과제3" style="text-align:center;" onclick="window.location.href='/day1_3'"/>
+                <input type="button" class="button" value="2일차 과제1" style="text-align:center;" onclick="window.location.href='/day2_1'"/>
+            </div>
+            <div class="flex-container"> 
+                <input type="button" class="button" value="2일차 과제2" style="text-align:center;" onclick="window.location.href='/day2_2'"/>
+                <input type="button" class="button" value="3일차 과제1" style="text-align:center;" onclick="window.location.href='/day3'"/>
+            </div>
+            <br><br><br>
+            <br><br>
+            <form action="/login" method="post" style="text-align:center;align-items:center;" class="flex-container">
+                <input id="id" style="text-align:center; width:120px; height:30px; margin:10px" name="id" type="text" placeholder="ID">
+                <input id="password" style="text-align:center; width:120px; height:30px; margin:10px" name="pw" type="password" placeholder="PW">
+                <button class="login_button" type="submit">로그인</button>
+            </form>
       </p>
   </body>
 </html>
+
+<script>
+    console.log(session)
+</script>

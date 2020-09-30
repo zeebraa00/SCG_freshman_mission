@@ -6,11 +6,10 @@
     text-decoration: none;
     display: block;
     font-size: 16px;
-    margin: auto;
+    margin: 10px;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
-
   }
 
   .button:hover {background-color: #3e8e41}
@@ -20,6 +19,29 @@
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
+
+.login_button {
+    background-color: #FF8000; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+
+  .login_button:hover {background-color: #cc6600}
+
+  .login_button:active {
+    background-color: #cc6600;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
 
   #btn_i {
     margin-left:auto;

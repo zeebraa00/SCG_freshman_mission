@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1000,
+    "name": "송태현",
+    "userid": "codream00",
+    "password": "i_am_the_scg",
+    "level": "president"
+  },
+  {
+    "id": 1001,
+    "name": "김창렬",
+    "userid": "hyeja",
+    "password": "password",
+    "level": "user"
+  },
+  {
+    "id": 1002,
+    "name": "성균관",
+    "userid": "hanyang",
+    "password": "sogang",
+    "level": "unauthed"
+  },
+  {
+    "id": 1003,
+    "name": "고한서",
+    "userid": "di01",
+    "password": "pass01",
+    "level": "admin"
+  }
+]
