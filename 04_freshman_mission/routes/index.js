@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require("path");
+const encrypt = require("../utils/encrypt")
 
 router.get('/', (req, res)=> {
   if (req.session.logined == true) {
@@ -63,25 +64,30 @@ router.get('/day3', (req, res)=> {
   res.render("day3/index");
 })
 
+// make callback promise
+const encryptPromise = (...args) => {
+  return new Promise((resolve, reject) => {
+    encrypt(...args, (encrypted_pw) => {
+      resolve(encrypted_pw)
+    })
+  })
+}
+
 router.post('/login', async (req, res)=> {
   try {
-    let user_check = 0; 
-    const file = fs.readFileSync(path.resolve(__dirname, "../utils/database.json")).toString();
-    const login = await Promise.all(JSON.parse(file).map(async (item) => {
-      const is_user = (item.userid == req.body.id) && (item.password == req.body.pw)
-      if (is_user) {
-        user_check = 1;
-        return;
+    let user_check = false; 
+    const file = fs.readFileSync(path.resolve(__dirname, "../utils/database_encrypted.json")).toString();
+    const checkUser = async item => {
+      const encrypted_pw = await encryptPromise(req.body.pw);
+      if ((item.userid == req.body.id) && (item.password == encrypted_pw)) {
+        user_check = true;
       }
-    }));
-    
-    // forEach 는 promise를 반환하지 않으므로, 위의 코드로 수정함.
-    // const login = await JSON.parse(file).forEach(item => {
-    //   const is_user = (item.userid == req.body.id) && (item.password == req.body.pw)
-    //   if (is_user) {
-    //     user_check = 1;
-    //   }
-    // });
+      return Promise.resolve(item.name);
+    }
+    const scanUserAll = async () => {
+      return Promise.all(JSON.parse(file).map(item => checkUser(item)));
+    }
+    const login = await scanUserAll();
 
     if (user_check) {
       req.session.regenerate( () => {
