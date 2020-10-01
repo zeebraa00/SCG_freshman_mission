@@ -4,9 +4,40 @@ const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const moment = require('moment-timezone');
 const indexRouter = require('./routes/index');
 
 const app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
+app.engine("html", require("ejs").renderFile);
+
+// morgan setup
+app.enable('trust proxy');
+logger.token('User', (req, res) => {
+  return !req.session
+    ? 'Source'
+    : req.session.user_id == undefined
+    ? 'Guest'
+    : req.session.user_id;
+});
+logger.token('Date', (req, res, tz) => {
+  return moment()
+    .tz(tz)
+    .format('YYYY-MM-DD HH:mm:ss Z');
+});
+logger.format(
+  'zebra',
+  ':User :remote-addr [:Date[Asia/Seoul]] ":method :url HTTP/:http-version" :status :res[content-length] ":user-agent" - :response-time ms',
+);
+
+app.use(logger(app.get('env') === 'development' ? 'dev' : 'zebra'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: "zebra",
@@ -17,17 +48,6 @@ app.use(session({
     maxAge: 3 * 60 * 60 * 1000
   }
 }));
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
-app.engine("html", require("ejs").renderFile);
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
@@ -44,7 +64,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send({
+    title: "error",
+    result: err.message
+  });
 });
 
 module.exports = app;
