@@ -73,7 +73,9 @@ const encryptPromise = (...args) => {
   })
 }
 
-router.post('/login', async (req, res)=> {
+const wrap = fn => (...args) => fn(...args).catch(args[2])
+
+router.post('/login', wrap(async (req, res)=> {
   try {
     let user_check = false; 
     const file = fs.readFileSync(path.resolve(__dirname, "../utils/database_encrypted.json")).toString();
@@ -101,10 +103,10 @@ router.post('/login', async (req, res)=> {
     } else {
       res.redirect("/");
     }
-  } catch(e) {
-    console.log(e);
+  } catch (e) {
+    res.status(500).json({ title: "error", result: e.message })
   }
-})
+}))
 
 router.post('/logout', (req,res) => {
   try {
@@ -117,7 +119,7 @@ router.post('/logout', (req,res) => {
       }
   );  
   } catch (e) {
-    console.log(e);
+    res.status(500).json({ title: "error", result: e.message })
   }
 })
 
