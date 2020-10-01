@@ -79,6 +79,7 @@ const wrap = fn => (...args) => fn(...args).catch(args[2])
 router.post('/login', wrap(async (req, res)=> {
   try {
     let user_check = false; 
+
     const file = fs.readFileSync(path.resolve(__dirname, "../utils/database_encrypted.json")).toString();
 
     const checkUser = async item => {
@@ -86,13 +87,13 @@ router.post('/login', wrap(async (req, res)=> {
       if ((item.userid == req.body.id) && (item.password == encrypted_pw)) {
         user_check = true;
       }
-      return Promise.resolve(item.name);
     }
 
     const scanUserAll = async () => {
-      return Promise.all(JSON.parse(file).map(item => checkUser(item)));
+      return Promise.all(JSON.parse(file).map(item => checkUser(item))); // db의 모든 user를 check할 때까지 기다리도록 Promise.all 메서드 사용.
     }
-    const login = await scanUserAll();
+    
+    const login = await scanUserAll(); // 즉, 이 함수가 실행되면 1)pw를 암호화하고, 2)일치하는 유저를 찾고, 3)user_check 변수를 변경함.
 
     // forEach 는 promise를 반환하지 않으므로, 위의 코드로 수정함.
     // const login = await JSON.parse(file).forEach(item => {
