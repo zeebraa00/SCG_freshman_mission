@@ -81,15 +81,15 @@ router.post('/login', wrap(async (req, res)=> {
     let user_check = false; 
 
     const file = fs.readFileSync(path.resolve(__dirname, "../utils/database_encrypted.json")).toString();
+    const encrypted_pw = await encryptPromise(req.body.pw);
 
     const checkUser = async item => {
-      const encrypted_pw = await encryptPromise(req.body.pw);
       if ((item.userid == req.body.id) && (item.password == encrypted_pw)) {
         user_check = true;
       }
     }
 
-    const scanUserAll = async () => {
+    const scanUserAll = () => {
       return Promise.all(JSON.parse(file).map(item => checkUser(item))); // db의 모든 user를 check할 때까지 기다리도록 Promise.all 메서드 사용.
     }
     
