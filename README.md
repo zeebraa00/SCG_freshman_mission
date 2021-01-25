@@ -1,5 +1,5 @@
 # SCG-freshman-mission
-<h3>http://zebra.scg.skku.ac.kr/ 에서 결과물을 확인할 수 있습니다.</h3>
+<h3>https://zebra.scg.skku.ac.kr/ 에서 결과물을 확인할 수 있습니다.</h3>
 <br>
 성균관대학교 소프트웨어대학 시스템컨설턴트그룹 2019년 신입선발과제(1~4일차) <br>
 <br>
